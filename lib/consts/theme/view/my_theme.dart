@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/consts/colors.dart';
 
 final ThemeData lightTheme = ThemeData(
@@ -7,10 +8,10 @@ final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     scaffoldBackgroundColor: Appcolors.lightBgColor,
     //appbar theme
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       backgroundColor: Colors.deepPurple,
       titleTextStyle: TextStyle(
-          fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
+          fontSize: 24.sp, color: Colors.white, fontWeight: FontWeight.bold),
       centerTitle: true,
       iconTheme: IconThemeData(color: Colors.white),
     ),
