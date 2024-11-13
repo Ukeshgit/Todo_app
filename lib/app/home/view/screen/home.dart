@@ -88,9 +88,13 @@ class Home extends StatelessWidget {
                           height: 50.h,
                           child: Row(children: [
                             CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 12.r,
-                                child: Text(todoController.todolist[index].id)),
+                              backgroundColor: Colors.white,
+                              radius: 12.r,
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.black,
+                              ),
+                            ),
                             SizedBox(
                               width: 10.w,
                             ),
@@ -103,12 +107,16 @@ class Home extends StatelessWidget {
                                       fontSize: 16.sp)),
                             ),
                             Spacer(),
-                            const IconButton(
-                                onPressed: editDialog,
-                                icon: Icon(Icons.edit,
+                            IconButton(
+                                onPressed: () {
+                                  editDialog(todoController.todolist[index]);
+                                },
+                                icon: const Icon(Icons.edit,
                                     color: Appcolors.lightDivColor)),
                             IconButton(
-                                onPressed: deleteDialog,
+                                onPressed: () {
+                                  deleteDialog(todoController.todolist[index]);
+                                },
                                 icon: Icon(Icons.delete,
                                     color: Appcolors.lightDivColor)),
                           ]));

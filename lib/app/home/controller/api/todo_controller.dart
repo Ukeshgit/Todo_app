@@ -32,6 +32,7 @@ class TodoController extends GetxController {
     }
   }
 
+//post api
   void postdata(title) async {
     String url = "https://672f430a229a881691f25daf.mockapi.io/todolist";
     try {
@@ -47,6 +48,41 @@ class TodoController extends GetxController {
       );
 
       if (response.statusCode == 201) {
+        todolist.clear();
+        fetchdata();
+      }
+    } on DioException catch (e) {
+      print("exception occured:${e}");
+    }
+  }
+
+  //delete api
+  void deletedata(id) async {
+    String url = "https://672f430a229a881691f25daf.mockapi.io/todolist/$id";
+    try {
+      var response = await _dio.delete(
+        url,
+      );
+
+      if (response.statusCode == 200) {
+        print("ddddddddddddddddddddddddddddddddddddddddddddddd");
+        todolist.clear();
+        fetchdata();
+      }
+    } on DioException catch (e) {
+      print("exception occured:${e}");
+    }
+  }
+
+  void updatedata(title, String id) async {
+    String url = "https://672f430a229a881691f25daf.mockapi.io/todolist/${id}";
+    try {
+      var response = await _dio.put(
+        url,
+        data: {'title': title},
+      );
+
+      if (response.statusCode == 200) {
         todolist.clear();
         fetchdata();
       }

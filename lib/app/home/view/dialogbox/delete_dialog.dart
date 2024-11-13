@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:todo_app/app/home/controller/api/todo_controller.dart';
 import 'package:todo_app/app/home/controller/edit_controller.dart';
+import 'package:todo_app/app/home/model/todo_model.dart';
 import 'package:todo_app/consts/colors.dart';
 
-void deleteDialog() {
-  EditController editController = Get.put(EditController());
+void deleteDialog(TodoModel deletecontroller) {
+  TodoController todoController = Get.put(TodoController());
+
   showDialog(
       context: Get.overlayContext!,
       builder: (context) {
@@ -32,7 +35,10 @@ void deleteDialog() {
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   textStyle: TextStyle(fontSize: 16),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  todoController.deletedata(deletecontroller.id);
+                  Get.back();
+                },
                 child: Text(
                   "Ok",
                   style: TextStyle(color: Appcolors.lightDivColor),
