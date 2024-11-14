@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
 
-import 'package:todo_app/app/home/view/dialogbox/add_dialog.dart';
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -19,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   _navigateToHome() async {
     await Future.delayed(Duration(seconds: 2), () {});
     Navigator.of(context)
-        .pushReplacementNamed('/home'); // Adjust route as needed
+        .pushReplacementNamed('/login'); // Adjust route as needed
   }
 
   @override
