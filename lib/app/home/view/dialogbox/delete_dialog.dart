@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/app/home/controller/api/todo_controller.dart';
-import 'package:todo_app/app/home/controller/edit_controller.dart';
 import 'package:todo_app/app/home/model/todo_model.dart';
 import 'package:todo_app/consts/colors.dart';
 

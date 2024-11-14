@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:todo_app/app/home/view/screen/home.dart';
+import 'package:todo_app/app/splash/splash_screen.dart';
 
 var allpages = [
-  GetPage(name: '/', page: () => const Home()),
-  GetPage(name: '/', page: () => const Home()),
+  GetPage(name: '/home', page: () => const Home()),
+  GetPage(name: '/', page: () => SplashScreen()),
 ];
