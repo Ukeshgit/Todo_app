@@ -9,8 +9,9 @@ class CustomButton extends StatefulWidget {
       required this.text,
       required this.textColor,
       required this.buttonColor,
-      this.pressedColor});
-
+      this.pressedColor,
+      required this.ontap});
+  final Function()? ontap;
   final double height;
   final double width;
   final String text;
@@ -31,10 +32,7 @@ class _CustomButtonState extends State<CustomButton> {
       onTapDown: (_) => setState(() => isPressed = true),
       onTapUp: (_) => setState(() => isPressed = false),
       onTapCancel: () => setState(() => isPressed = false),
-      onTap: () {
-        // Your button action here
-        // Example: Navigator.push(context, MaterialPageRoute(builder: (_) => AddDialog()));
-      },
+      onTap: widget.ontap,
       child: AnimatedScale(
         scale: isPressed ? 0.95 : 1.0,
         duration: Duration(milliseconds: 100),

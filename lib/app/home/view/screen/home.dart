@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:todo_app/app/authentication/widgets/logout.dart';
 import 'package:todo_app/app/home/controller/api/todo_controller.dart';
 import 'package:todo_app/app/home/view/dialogbox/add_dialog.dart';
 import 'package:todo_app/app/home/view/dialogbox/delete_dialog.dart';
@@ -27,6 +28,12 @@ class Home extends StatelessWidget {
               ? const Icon(Icons.dark_mode)
               : const Icon(Icons.light_mode)),
         ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: Logout(),
+          ),
+        ],
       ),
       bottomNavigationBar: InkWell(
         onTap: addDialog,
