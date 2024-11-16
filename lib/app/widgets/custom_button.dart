@@ -10,11 +10,13 @@ class CustomButton extends StatefulWidget {
       required this.textColor,
       required this.buttonColor,
       this.pressedColor,
-      required this.ontap});
+      required this.ontap,
+      this.isLoading = false});
   final Function()? ontap;
   final double height;
   final double width;
   final String text;
+  final bool isLoading;
   final Color textColor;
   final Color buttonColor;
   final Color? pressedColor; // Optional color for pressed state
@@ -37,22 +39,25 @@ class _CustomButtonState extends State<CustomButton> {
         scale: isPressed ? 0.95 : 1.0,
         duration: Duration(milliseconds: 100),
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 100),
-          decoration: BoxDecoration(
-            color: isPressed
-                ? widget.pressedColor ?? widget.buttonColor.withOpacity(0.8)
-                : widget.buttonColor,
-            borderRadius: BorderRadius.circular(8.sp),
-          ),
-          height: widget.height,
-          width: widget.width,
-          child: Center(
-            child: Text(
-              widget.text,
-              style: TextStyle(color: widget.textColor),
+            duration: Duration(milliseconds: 100),
+            decoration: BoxDecoration(
+              color: isPressed
+                  ? widget.pressedColor ?? widget.buttonColor.withOpacity(0.8)
+                  : widget.buttonColor,
+              borderRadius: BorderRadius.circular(8.sp),
             ),
-          ),
-        ),
+            height: widget.height,
+            width: widget.width,
+            child: Center(
+              child: widget.isLoading
+                  ? const CircularProgressIndicator(
+                      color: Colors.white, // You can customize this color
+                    )
+                  : Text(
+                      widget.text,
+                      style: TextStyle(color: widget.textColor),
+                    ),
+            )),
       ),
     );
   }

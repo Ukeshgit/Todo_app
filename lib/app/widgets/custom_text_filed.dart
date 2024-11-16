@@ -25,13 +25,13 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
         controller: widget.controller,
         obscureText: !widget.suffixIcon ? false : _isObscured,
         decoration: InputDecoration(
+          labelText: widget.hintText,
+          labelStyle: TextStyle(color: Colors.grey, fontSize: 16.sp),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide: BorderSide(color: Colors.grey.shade100)),
           fillColor: Colors.white,
           filled: true,
-          hintText: widget.hintText,
-          hintStyle: TextStyle(color: Colors.grey, fontSize: 16.sp),
           focusedBorder:
               OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
           enabledBorder: OutlineInputBorder(

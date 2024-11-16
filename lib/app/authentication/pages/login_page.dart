@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
+import 'package:todo_app/app/authentication/controller/loading_indicator.dart';
 import 'package:todo_app/app/authentication/widgets/square_tile.dart';
 import 'package:todo_app/app/home/controller/add_controller.dart';
 import 'package:todo_app/app/home/view/screen/home.dart';
@@ -20,6 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
+  final LoadingIndicator loadingIndicator = Get.put(LoadingIndicator());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -84,13 +86,18 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 16.h,
                 ),
-                CustomButton(
-                    ontap: () => login(),
-                    height: 60.h,
-                    width: double.infinity,
-                    text: "Log in",
-                    buttonColor: Colors.black,
-                    textColor: Colors.white),
+
+                Obx(
+                  () => CustomButton(
+                      isLoading: loadingIndicator.isLoading.value,
+                      ontap: () => login(),
+                      height: 60.h,
+                      width: double.infinity,
+                      text: "Log in",
+                      buttonColor: Colors.black,
+                      textColor: Colors.white),
+                ),
+
                 SizedBox(
                   height: 80.h,
                 ),
@@ -150,9 +157,14 @@ class _LoginPageState extends State<LoginPage> {
                       "Not a member? ",
                       style: TextStyle(color: Colors.grey, fontSize: 16.sp),
                     ),
-                    Text(
-                      "Register Now",
-                      style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed('/signup');
+                      },
+                      child: Text(
+                        "Register Now",
+                        style: TextStyle(color: Colors.blue, fontSize: 16.sp),
+                      ),
                     ),
                   ],
                 ),
@@ -164,9 +176,18 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void login() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+  Future<void> login() async {
+    try {
+      loadingIndicator.isLoading.value = true;
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailcontroller.text.toString(),
-        password: passwordcontroller.text.toString());
+        password: passwordcontroller.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar('Error', e.message ?? 'Login failed',
+          snackPosition: SnackPosition.BOTTOM);
+    } finally {
+      loadingIndicator.isLoading.value = false; // Hide loading indicator
+    }
   }
 }
