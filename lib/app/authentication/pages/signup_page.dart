@@ -1,10 +1,10 @@
 import 'package:bounce/bounce.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:todo_app/app/authentication/controller/loading_indicator.dart';
+import 'package:todo_app/app/authentication/pages/auth_services.dart';
 import 'package:todo_app/app/authentication/widgets/square_tile.dart';
 import 'package:todo_app/app/widgets/custom_button.dart';
 import 'package:todo_app/app/widgets/custom_text_filed.dart';
@@ -18,6 +18,27 @@ class SignupPage extends StatelessWidget {
     TextEditingController passwordcontroller = TextEditingController();
     TextEditingController confirmpasswordcontroller = TextEditingController();
     final LoadingIndicator loadingIndicator = Get.put(LoadingIndicator());
+
+    void signup() async {
+      try {
+        loadingIndicator.isLoading.value = true;
+        if (passwordcontroller.text.toString() ==
+            confirmpasswordcontroller.text.toString()) {
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: emailcontroller.text.toString(),
+              password: passwordcontroller.text.toString());
+          Get.toNamed('/login');
+        } else {
+          Get.snackbar("Error", "Password doesn't match ");
+        }
+      } on FirebaseAuthException catch (e) {
+        Get.snackbar('Error', e.message ?? 'Login failed',
+            snackPosition: SnackPosition.BOTTOM);
+      } finally {
+        loadingIndicator.isLoading.value = false; // Hide loading indicator
+      }
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Scaffold(
@@ -74,19 +95,7 @@ class SignupPage extends StatelessWidget {
                     hintText: "Confirm password",
                     controller: confirmpasswordcontroller,
                   ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Forgot password?",
-                        style:
-                            TextStyle(color: Colors.grey[600], fontSize: 16.sp),
-                      ),
-                    ],
-                  ),
+
                   SizedBox(
                     height: 16.h,
                   ),
@@ -94,10 +103,10 @@ class SignupPage extends StatelessWidget {
                   Obx(
                     () => CustomButton(
                         isLoading: loadingIndicator.isLoading.value,
-                        ontap: () {},
+                        ontap: signup,
                         height: 60.h,
                         width: double.infinity,
-                        text: "Log in",
+                        text: "Sign Up",
                         buttonColor: Colors.black,
                         textColor: Colors.white),
                   ),
@@ -136,6 +145,9 @@ class SignupPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Bounce(
+                        onTap: () {
+                          signInWithGoogle();
+                        },
                         child: SquareTile(
                           imagelink: "assets/icons/google_logo.svg",
                         ),

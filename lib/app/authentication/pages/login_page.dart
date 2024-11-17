@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:todo_app/app/authentication/controller/loading_indicator.dart';
+import 'package:todo_app/app/authentication/pages/auth_services.dart';
 import 'package:todo_app/app/authentication/widgets/square_tile.dart';
 import 'package:todo_app/app/home/controller/add_controller.dart';
 import 'package:todo_app/app/home/view/screen/home.dart';
@@ -128,10 +129,14 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 20.h,
                 ),
+                //google +Apple sigin in button
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Bounce(
+                      onTap: () {
+                        signInWithGoogle();
+                      },
                       child: SquareTile(
                         imagelink: "assets/icons/google_logo.svg",
                       ),
