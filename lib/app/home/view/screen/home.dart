@@ -6,6 +6,7 @@ import 'package:todo_app/app/home/controller/api/todo_controller.dart';
 import 'package:todo_app/app/home/view/dialogbox/add_dialog.dart';
 import 'package:todo_app/app/home/view/dialogbox/delete_dialog.dart';
 import 'package:todo_app/app/home/view/dialogbox/edit_dialog.dart';
+import 'package:todo_app/app/home/view/widget/timepicker_controller.dart';
 import 'package:todo_app/consts/colors.dart';
 import 'package:todo_app/consts/theme/contoller/theme_controller.dart';
 
@@ -16,6 +17,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeController themeController = Get.put(ThemeController());
     TodoController todoController = Get.put(TodoController());
+    Timepicker timepickercontroller = Get.put(Timepicker());
 
     return Scaffold(
       appBar: AppBar(
@@ -92,7 +94,7 @@ class Home extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.sp)),
                           margin: EdgeInsets.only(bottom: 20.h),
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          height: 50.h,
+                          height: 60.h,
                           child: Row(children: [
                             CircleAvatar(
                               backgroundColor: Colors.white,
@@ -105,13 +107,28 @@ class Home extends StatelessWidget {
                             SizedBox(
                               width: 10.w,
                             ),
-                            Container(
-                              width: 190.w,
-                              child: Text(todoController.todolist[index].title,
-                                  style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      color: Appcolors.lightDivColor,
-                                      fontSize: 16.sp)),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 190.w,
+                                  child: Text(
+                                      todoController.todolist[index].title,
+                                      style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          color: Appcolors.lightDivColor,
+                                          fontSize: 16.sp)),
+                                ),
+                                //timepicker
+                                //selected the logic for unique time tomorrow
+                                Text(
+                                    "${timepickercontroller.selectedTime.hour.toString()}:${timepickercontroller.selectedTime.minute.toString()}",
+                                    style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        color: Appcolors.lightDivColor,
+                                        fontSize: 16.sp)),
+                              ],
                             ),
                             Spacer(),
                             IconButton(

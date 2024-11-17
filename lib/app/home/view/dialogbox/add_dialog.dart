@@ -1,14 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/app/home/controller/add_controller.dart';
 import 'package:todo_app/app/home/controller/api/todo_controller.dart';
 import 'package:todo_app/app/home/controller/edit_controller.dart';
+import 'package:todo_app/app/home/view/widget/timepicker_controller.dart';
 import 'package:todo_app/consts/colors.dart';
 
 void addDialog() {
   AddController adddataController = Get.put(AddController());
   TodoController todoController = Get.put(TodoController());
+  Timepicker timepickercontroller = Get.put(Timepicker());
   showDialog(
       context: Get.overlayContext!,
       builder: (context) {
@@ -18,7 +22,7 @@ void addDialog() {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.sp)),
           content: Container(
-            height: 100.h,
+            height: 160.h,
             padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 12.sp),
             child: Column(
               children: [
@@ -36,6 +40,31 @@ void addDialog() {
                       hintStyle: TextStyle(
                           color: Theme.of(context).colorScheme.primary)),
                 ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                InkWell(
+                  onTap: () async {
+                    final TimeOfDay? timeOfDay = await showTimePicker(
+                        context: context,
+                        initialTime: timepickercontroller.selectedTime,
+                        initialEntryMode: TimePickerEntryMode.dial);
+                    if (timeOfDay != null) {
+                      timepickercontroller.selectedTime = timeOfDay;
+                    }
+                  },
+                  child: Container(
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.sp),
+                        color: Theme.of(context).colorScheme.primary),
+                    child: Center(
+                        child: Text(
+                      "Enter Time",
+                      style: TextStyle(color: Appcolors.lightDivColor),
+                    )),
+                  ),
+                )
               ],
             ),
           ),
