@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:todo_app/app/home/controller/add_controller.dart';
 import 'package:todo_app/app/home/controller/api/todo_controller.dart';
 import 'package:todo_app/app/home/controller/edit_controller.dart';
-import 'package:todo_app/app/home/view/widget/timepicker_controller.dart';
+import 'package:todo_app/app/authentication/controller/timepicker_controller.dart';
 import 'package:todo_app/consts/colors.dart';
 
 void addDialog() {
