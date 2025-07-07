@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:todo_app/app/authentication/controller/timepicker_controller.dart';
 import 'package:todo_app/app/authentication/widgets/logout.dart';
 import 'package:todo_app/app/home/controller/api/todo_controller.dart';
 import 'package:todo_app/app/home/view/dialogbox/add_dialog.dart';
 import 'package:todo_app/app/home/view/dialogbox/delete_dialog.dart';
 import 'package:todo_app/app/home/view/dialogbox/edit_dialog.dart';
-import 'package:todo_app/app/home/view/widget/timepicker_controller.dart';
 import 'package:todo_app/consts/colors.dart';
 import 'package:todo_app/consts/theme/contoller/theme_controller.dart';
 
